@@ -5,10 +5,7 @@
 ///https://www.geeksforgeeks.org/find-largest-among-three-different-positive-numbers-using-command-line-argument/
 //FCFS
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <ctype.h>
+#include "CPUSched.h"
 
 #define TRUE 1
 #define FALSE 0
