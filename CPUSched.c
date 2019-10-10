@@ -1,5 +1,97 @@
 // FILE: CPU_Scheduler.c
 //
 
+/// SOURCES
+///https://www.geeksforgeeks.org/find-largest-among-three-different-positive-numbers-using-command-line-argument/
 //FCFS
 
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+#define TRUE 1
+#define FALSE 0
+
+typedef int BOOL;
+
+BOOL missingParameter(int numArgs, int currentArg);
+
+int main (int argc, char *argv[]) {
+if (argc > 12) {
+   printf("ERROR: TOO MANY ARGUMENTS\n");
+   return 0;
+}
+
+//initialize all of the flag values to their defualtschar type[10] = "FCFS
+char type[10] = "FCFS";
+int quanta = 10;
+BOOL preemptive = FALSE;
+char infile[100] = "process.in";
+char outfile[100] = "process.out";
+BOOL simulation = FALSE;
+
+//bool for testing for a missing PARAMETER
+BOOL missingParam = FALSE;
+int nextIndex;
+
+for (int i = 0; i < argc; i++) {
+    if (!strcasecmp(argv[i], "-type")) {
+        if (argc <= i+1) {
+          printf ("ERROR: MISSING PARAMETER.\n");
+          return 0;
+        }
+        strcpy (type, argv[i+1]);
+        if (!((!strcasecmp(argv[i+1], "FCFS")) || (!strcasecmp(argv[i+1], "RR")) || (!strcmp(argv[i+1], "SJF")) || (!strcmp(argv[i+1], "priority")))) {
+            printf ("ERROR: INVALID TYPE. VALID TYPES INCLUDE: FCFS, RR, SJF, priority\n");
+            return 0;
+        }
+    }
+    if (!strcasecmp(argv[i], "-quanta")) {
+        if (argc <= i+1) {
+          printf ("ERROR: MISSING PARAMETER.\n");
+          return 0;
+        }
+        // Code for testing non-digits in specified quanta from https://stackoverflow.com/questions/10166157/check-if-entire-array-of-characters-in-c-are-only-numbers-return-true-if-yes
+        int j;
+        const int len = strlen(argv[i+1]);
+        char quantaString[len];
+        strcpy (quantaString, argv[i+1]);
+        for (j = 0; j < len; j++) {
+            if (!isdigit(quantaString[j])) {
+                printf ("ERROR: NON_DIGITS IN QUANTA. QUANTA MUST BE A POSITIVE, NON-ZERO INTEGER.\n");
+                return 0;
+            }
+        }
+
+        quanta = atoi(argv[i+1]);
+        if (quanta==0) {
+            printf ("ERROR: QUANTA MUST BE A POSITIVE, NON-ZERO INTEGER\n");
+            return 0;
+        }
+    }
+    if (!strcasecmp(argv[i], "-preemptive")) {
+        preemptive = TRUE;
+    }
+}
+printf ("Type string: %s\n", type);
+printf ("quanta number: %d\n", quanta);
+if (preemptive) {
+    printf ("preemptive: true\n");
+}
+if (!preemptive) {
+    printf ("preemptive: false\n");
+}
+}
+
+BOOL missingParameter(int numArgs, int currentArg) {
+  if (numArgs <= currentArg) {
+    return TRUE;
+  }
+  else {
+    return FALSE;
+  }
+}
+
+
+//
