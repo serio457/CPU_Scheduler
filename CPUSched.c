@@ -8,11 +8,6 @@
 
 #include "CPUSched.h"
 
-#define TRUE 1
-#define FALSE 0
-
-typedef int BOOL;
-
 BOOL missingParameter(int numArgs, int currentArg);
 
 int main (int argc, char *argv[]) {
@@ -71,6 +66,14 @@ for (int i = 0; i < argc; i++) {
     if (!strcasecmp(argv[i], "-preemptive")) {
         preemptive = TRUE;
     }
+
+    if (!strcasecmp(argv[i], "-infile")) {
+      strcpy(infile, argv[i+1]);
+    }
+
+    if (!strcasecmp(argv[i], "-outfile")) {
+      strcpy(outfile, argv[i+1]);
+    }
 }
 printf ("Type string: %s\n", type);
 printf ("quanta number: %d\n", quanta);
@@ -80,6 +83,24 @@ if (preemptive) {
 if (!preemptive) {
     printf ("preemptive: false\n");
 }
+printf ("INFILE name: %s\n", infile);
+printf ("OUTFILE name: %s\n", outfile);
+
+//read from an infile
+if (!simulation) {
+  FILE *file;
+  int c;
+  file = fopen (infile, "r");
+  if (file) {
+    while ((c = getc(file)) != EOF) {
+        putchar(c);
+    }
+  }
+    fclose(file);
+}
+printf ("\n");
+
+
 }
 
 BOOL missingParameter(int numArgs, int currentArg) {
