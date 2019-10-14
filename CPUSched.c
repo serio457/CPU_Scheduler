@@ -6,14 +6,13 @@
 //FCFS
 // Code for testing non-digits in specified quanta: https://stackoverflow.com/questions/10166157/check-if-entire-array-of-characters-in-c-are-only-numbers-return-true-if-yes
 
+
+
 #include "CPUSched.h"
 
-#define TRUE 1
-#define FALSE 0
-
-typedef int BOOL;
-
-BOOL missingParameter(int numArgs, int currentArg);
+//
+BOOL missingParameter(int numArgs, int currentArg); // DO WE NEED THIS?
+//
 
 int main (int argc, char *argv[]) {
 if (argc > 12) {
@@ -30,7 +29,9 @@ char outfile[100] = "process.out";
 BOOL simulation = FALSE;
 
 //bool for testing for a missing PARAMETER
-BOOL missingParam = FALSE;
+//
+BOOL missingParam = FALSE; // IS THIS STILL IN USE?
+//
 int nextIndex;
 
 for (int i = 0; i < argc; i++) {
@@ -82,6 +83,9 @@ if (!preemptive) {
 }
 }
 
+// KEEP OR NAH?
+//
+//
 BOOL missingParameter(int numArgs, int currentArg) {
   if (numArgs <= currentArg) {
     return TRUE;
