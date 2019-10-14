@@ -7,16 +7,12 @@
 // Code for testing non-digits in specified quanta: https://stackoverflow.com/questions/10166157/check-if-entire-array-of-characters-in-c-are-only-numbers-return-true-if-yes
 
 
-<<<<<<< HEAD
 
 #include "CPUSched.h"
 
 //
 BOOL missingParameter(int numArgs, int currentArg); // DO WE NEED THIS?
 //
-=======
-BOOL missingParameter(int numArgs, int currentArg);
->>>>>>> perry
 
 int main (int argc, char *argv[]) {
 if (argc > 12) {
