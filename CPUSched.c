@@ -27,6 +27,9 @@ BOOL preemptive = FALSE;
 char infile[100] = "process.in";
 char outfile[100] = "process.out";
 BOOL simulation = FALSE;
+BOOL arrival = FALSE;
+BOOL burst = FALSE;
+int simCount = -1;
 
 //bool for testing for a missing PARAMETER
 //
@@ -80,6 +83,34 @@ for (int i = 0; i < argc; i++) {
     if (!strcasecmp(argv[i], "-outfile")) {
       strcpy(outfile, argv[i+1]);
     }
+
+    if (!strcasecmp(argv[i], "-simulation")) {
+        simulation = TRUE;
+        for (int j = 1; j < 4 && argv[i+j]; i++) {
+            if (!strcasecmp(argv[i+1], "arrival")) {
+                arrival = TRUE;
+            }
+            if (!strcasecmp(argv[i+1], "burst")) {
+                burst = TRUE;
+            }
+            const int len = strlen(argv[i+j]);
+            char countString[len];
+            BOOL validNumber = TRUE;
+            strcpy (countString, argv[i+j]);
+            for (int k = 0; k < len && validNumber; k++) {
+                if (!isdigit(countString[k])) {
+                    validNumber = FALSE;
+                }
+            }
+            if (validNumber) {
+                simCount = atoi(argv[i+j]);
+            }
+        }
+        if (simCount == -1) {
+            printf ("ERROR: MISSING SIMULATION COUNT. PLEASE SPECIFY A POSITIVE, NON-ZERO NUMBER.\n");
+            return 0;
+        }
+    }
 }
 printf ("Type string: %s\n", type);
 printf ("quanta number: %d\n", quanta);
@@ -91,6 +122,16 @@ if (!preemptive) {
 }
 printf ("INFILE name: %s\n", infile);
 printf ("OUTFILE name: %s\n", outfile);
+if (simulation) {
+    printf ("Simulation: true\n");
+    if (arrival) {
+        printf ("\tSimulating arrival: true\n");
+    }
+    if (burst) {
+        printf ("\tSimulating burst: true\n");
+    }
+    printf ("\tSimulation count: %i", simCount);
+}
 
 //read from an infile
 if (!simulation) {
