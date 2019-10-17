@@ -29,6 +29,7 @@ BOOL missingParam = FALSE;
 int nextIndex;
 
 for (int i = 0; i < argc; i++) {
+    //tests for type argument
     if (!strcasecmp(argv[i], "-type")) {
         if (argc <= i+1) {
           printf ("ERROR: MISSING PARAMETER.\n");
@@ -40,6 +41,7 @@ for (int i = 0; i < argc; i++) {
             return 0;
         }
     }
+    //tests for quanta value
     if (!strcasecmp(argv[i], "-quanta")) {
         if (argc <= i+1) {
           printf ("ERROR: MISSING PARAMETER.\n");
@@ -63,15 +65,24 @@ for (int i = 0; i < argc; i++) {
             return 0;
         }
     }
+    //tests for preemptive flag
     if (!strcasecmp(argv[i], "-preemptive")) {
         preemptive = TRUE;
     }
 
     if (!strcasecmp(argv[i], "-infile")) {
+      if (argc <= i+1) {
+        printf ("ERROR: MISSING PARAMETER.\n");
+        return 0;
+      }
       strcpy(infile, argv[i+1]);
     }
 
     if (!strcasecmp(argv[i], "-outfile")) {
+      if (argc <= i+1) {
+        printf ("ERROR: MISSING PARAMETER.\n");
+        return 0;
+      }
       strcpy(outfile, argv[i+1]);
     }
 }
