@@ -102,16 +102,28 @@ if (!simulation) {
   FILE *file;
   char processName[10];
   int arrival, burst, priority;
-  int c;
+  int c, numProcesses=0;
+  struct PCB processes[500];
   file = fopen (infile, "r");
   if (file) {
     while (fscanf(file, "%d", &c) != EOF) {
+      //take in the line & save values
       fscanf(file, "%s %d %d %d", processName, &arrival, &burst, &priority);
-      //some function that puts these in a PCB
-      printf ("Process: %s %d %d %d\n", processName, arrival, burst, priority);
+      //make a PCB with the read data and store it in an array
+      makePCB (processName, arrival, burst, priority, processes, numProcesses);
+      //increment the number of processes
+      numProcesses++;
     }
   }
   fclose(file);
+
+  //test whats in the array
+  int p = 0;
+  while (p < numProcesses) {
+    printf ("PCB: %s %d %d %d\n", processes[p].name, processes[p].arrivalTime, processes[p].burstTime, processes[p].priority);
+    p++;
+  }
+  
 }
 printf ("\n");
 
