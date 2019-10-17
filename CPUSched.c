@@ -89,14 +89,18 @@ printf ("OUTFILE name: %s\n", outfile);
 //read from an infile
 if (!simulation) {
   FILE *file;
+  char processName[10];
+  int arrival, burst, priority;
   int c;
   file = fopen (infile, "r");
   if (file) {
-    while ((c = getc(file)) != EOF) {
-        putchar(c);
+    while (fscanf(file, "%d", &c) != EOF) {
+      fscanf(file, "%s %d %d %d", processName, &arrival, &burst, &priority);
+      //some function that puts these in a PCB
+      printf ("Process: %s %d %d %d\n", processName, arrival, burst, priority);
     }
   }
-    fclose(file);
+  fclose(file);
 }
 printf ("\n");
 
