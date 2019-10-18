@@ -3,30 +3,48 @@
     FILE: simulation.c
     Creates a list of simulated processes
     Brings in the parameters to simulate and the length of the list. Returns an array of process structs
+    Generating random numbers: https://www.geeksforgeeks.org/generating-random-number-range-c/
 */
 
 #include "simulation.h"
 
-void simulate (BOOL arrival, BOOL burst, int count, PCB *list) {
-    srand(time(0));
+///Generates a list of randomized PCB objects
+///Arrival and burst are randomized if the corrisponding flags are true
+void simulate (BOOL arrival, BOOL burst, int count, struct PCB list[]) {
+  char PCBName[100];
     for (int i = 0; i < count; i++) {
-        strcpy(PCB.name, "p");
-        strcpy(PCB.name[1], i);
-        if (arrival) {
-            PCB.arrivalTime = getRandom(LOWER_ARRIVAL);
-        }
-        else {
-            PCB.arribalTime = i*5;
-        }
-        if (burst) {
-            PCB.burstTime = getRandom(LOWER_BURST);
-        }
-        else {
-            PCB.burstTime = 20;
-        }
+	sprintf(PCBName, "p%i", i);
+	makePCB(PCBName, makeArrival(arrival, i), makeBurst(burst, i), makePriority(), list, i);
     }
 }
 
-int getRandom (int lower) {
+///Simulates arrival time
+///If arrival is not to be randomized, it defaults to i*5
+int makeArrival (BOOL simArrival, int i) {
+    if (simArrival) 
+        return getRandom(i, LOWER_ARRIVAL);
+    else 
+        return i*5;
+}
+
+///Simulates burst time
+///If burst is not to be randomized, it defaults to 20
+int makeBurst (BOOL simBurst) {
+    if (simBurst) 
+        return getRandom(i, LOWER_BURST);
+    else 
+        return 20;
+}
+
+///Simulates priority
+//priority is always randomized 
+int makePriority () {
+    return getRandom(i, LOWER_PRIORITY);
+}
+
+///Returns a "random" number
+///Uses the current time and a seeding number to generate the number
+int getRandom (int seed, int lower) {
+    srand(time(0)*(seed+1));
     return (rand() % (UPPER - lower + 1)) + lower;
 }
