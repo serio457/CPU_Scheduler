@@ -109,19 +109,19 @@ int simCount = -1;
     int arrival, burst, priority;
     int c, numProcesses=0;
     struct PCB processes[500];
-// unclear if the above code is still needed    
+// unclear if the above code is still needed
     if (!strcasecmp(argv[i], "-outfile")) {
       strcpy(outfile, argv[i+1]);
     }
 
     if (!strcasecmp(argv[i], "-simulation")) {
-        simulation = TRUE;
+        simulationFlag = TRUE;
         for (int j = 1; j < 4 && argv[i+j]; i++) {
             if (!strcasecmp(argv[i+1], "arrival")) {
-                arrival = TRUE;
+                arrivalFlag = TRUE;
             }
             if (!strcasecmp(argv[i+1], "burst")) {
-                burst = TRUE;
+                burstFlag = TRUE;
             }
             const int len = strlen(argv[i+j]);
             char countString[len];
@@ -152,12 +152,12 @@ if (!preemptive) {
 }
 printf ("INFILE name: %s\n", infile);
 printf ("OUTFILE name: %s\n", outfile);
-if (simulation) {
+if (simulationFlag) {
     printf ("Simulation: true\n");
-    if (arrival) {
+    if (arrivalFlag) {
         printf ("\tSimulating arrival: true\n");
     }
-    if (burst) {
+    if (burstFlag) {
         printf ("\tSimulating burst: true\n");
     }
     printf ("\tSimulation count: %i", simCount);
