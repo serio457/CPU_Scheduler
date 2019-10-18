@@ -10,6 +10,9 @@ struct PCB {
 
 void addToArray (struct PCB pcb, struct PCB array[], int count);
 void makePCB (char name[], int arrival, int burst, int priority, struct PCB array[], int count);
+void sortByArrival (struct PCB array[], int size);
+void sortByBurst (struct PCB array[], int size);
+void sortByPriority (struct PCB array[], int size);
 //PCB compareName (PCB pcb1, PCB pcb2);
 //PCB compareAT (PCB pcb1, PCB pcb2);
 //PCB compareBT (PCB pcb1, PCB pcb2);
