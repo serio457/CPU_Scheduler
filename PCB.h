@@ -13,6 +13,7 @@ void makePCB (char name[], int arrival, int burst, int priority, struct PCB arra
 void sortByArrival (struct PCB array[], int size);
 void sortByBurst (struct PCB array[], int size);
 void sortByPriority (struct PCB array[], int size);
+void lexigraphicalTieBreaker (struct PCB array[], int i, int j);
 //PCB compareName (PCB pcb1, PCB pcb2);
 //PCB compareAT (PCB pcb1, PCB pcb2);
 //PCB compareBT (PCB pcb1, PCB pcb2);

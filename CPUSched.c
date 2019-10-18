@@ -14,7 +14,7 @@ int main (int argc, char *argv[]) {
     if (argc > 12) {
         printf("ERROR: TOO MANY ARGUMENTS\n");
         return 0;
-        }
+    }
 
 //initialize all of the flag values to their defualtschar type[10] = "FCFS
     char type[10] = "FCFS";
@@ -119,18 +119,18 @@ int main (int argc, char *argv[]) {
         fclose(file);
 
 //sort the array of PCB's based on the specified sort type
-if (strcasecmp(type, "FCFS") == 0) {
-  sortByArrival (processes, numProcesses);
-}
-else if (strcasecmp(type, "SJF") == 0) {
-  sortByBurst (processes, numProcesses);
-}
-//else if (strcasecmp(type, "RR") == 0) {
-//  sortByArrival (processes, numProcesses);
-//}
-else {
-  sortByPriority (processes, numProcesses);
-}
+    if (strcasecmp(type, "FCFS") == 0) {
+        sortByArrival (processes, numProcesses);
+    }
+    else if (strcasecmp(type, "SJF") == 0) {
+        sortByBurst (processes, numProcesses);
+    }
+    //else if (strcasecmp(type, "RR") == 0) {
+    //  sortByArrival (processes, numProcesses);
+    //}
+    else {
+        sortByPriority (processes, numProcesses);
+    }
 
 
   //test whats in the array
@@ -139,10 +139,7 @@ else {
             printf ("PCB: %s %d %d %d\n", processes[p].name, processes[p].arrivalTime, processes[p].burstTime, processes[p].priority);
             p++;
         }
-
     }
-
-
     printf ("\n");
 }
 

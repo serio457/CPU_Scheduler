@@ -30,6 +30,9 @@ void sortByArrival (struct PCB array[], int size) {
 				array[i] = array[j];
 				array[j] = temp;
 			}
+      else if (array[j].arrivalTime == array[i].arrivalTime) {
+        lexigraphicalTieBreaker (array, i, j);
+      }
 		}
 	}
 }
@@ -63,3 +66,15 @@ void sortByPriority (struct PCB array[], int size) {
     }
   }
 }
+
+void lexigraphicalTieBreaker (struct PCB array[], int i, int j) {
+    int comparison = strcmp (array[j].name, array[i].name);
+    if (comparison < 0) {
+
+    }
+}
+
+
+
+
+//
