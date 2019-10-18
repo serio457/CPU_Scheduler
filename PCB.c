@@ -1,17 +1,80 @@
 // FILE: PCB.c
 // Operating Systems, Fall 2019
-// 
+//
 
+#include "PCB.h"
 
-PCB compareName (PCB pcb1, PCB pcb2) {
-
+void addToArray (struct PCB pcb, struct PCB array[], int index) {
+    array[index] = pcb;
 }
-PCB compareAT (PCB pcb1, PCB pcb2){
 
+void makePCB (char name[], int arrival, int burst, int priority, struct PCB array[], int count) {
+    struct PCB pcb;
+    strcpy (pcb.name, name);
+    pcb.arrivalTime = arrival;
+    pcb.burstTime = burst;
+    pcb.priority = priority;
+    addToArray (pcb, array, count);
 }
-PCB compareBT (PCB pcb1, PCB pcb2) {
 
+
+//code for sorting from https://en.wikiversity.org/wiki/C_Source_Code/Sorting_array_in_ascending_and_descending_order
+void sortByArrival (struct PCB array[], int size) {
+  for (int i = 0; i < size; i++)
+	{
+		for (int j = 0; j < size; j++)
+		{
+			if (array[j].arrivalTime > array[i].arrivalTime)
+			{
+				struct PCB temp = array[i];
+				array[i] = array[j];
+				array[j] = temp;
+			}
+      else if (array[j].arrivalTime == array[i].arrivalTime) {
+        lexigraphicalTieBreaker (array, i, j);
+      }
+		}
+	}
 }
-PCB comparePriority (PCB pcb1, PCB pcb2) {
-    
+
+void sortByBurst (struct PCB array[], int size) {
+  for (int i = 0; i < size; i++)
+  {
+    for (int j = 0; j < size; j++)
+    {
+      if (array[j].burstTime > array[i].burstTime)
+      {
+        struct PCB temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
+    }
+  }
 }
+
+void sortByPriority (struct PCB array[], int size) {
+  for (int i = 0; i < size; i++)
+  {
+    for (int j = 0; j < size; j++)
+    {
+      if (array[j].priority > array[i].priority)
+      {
+        struct PCB temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
+    }
+  }
+}
+
+void lexigraphicalTieBreaker (struct PCB array[], int i, int j) {
+    int comparison = strcmp (array[j].name, array[i].name);
+    if (comparison < 0) {
+
+    }
+}
+
+
+
+
+//
