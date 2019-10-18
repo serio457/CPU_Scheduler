@@ -38,13 +38,13 @@ int makeBurst (BOOL simBurst) {
 
 ///Simulates priority
 //priority is always randomized 
-int makePriority () {
+int makePriority (int i) {
     return getRandom(i, UPPER_PRIORITY, LOWER_PRIORITY);
 }
 
 ///Returns a "random" number
 ///Uses the current time and a seeding number to generate the number
-int getRandom (int seed,int upper, int lower) {
+int getRandom (int seed, int upper, int lower) {
     srand(time(0)*(seed+1));
     return (rand() % (upper - lower + 1)) + lower;
 }

@@ -20,7 +20,8 @@
 #define UPPER_PRIORITY 1023
 
 ///Function prototypes
-void simulate (BOOL, BOOL, int, struct PCB);
-int makeArrival (BOOL);
-int makeBurst (BOOL);
-int getRandom (int, int);
+void simulate (BOOL arrival, BOOL burst, int count, struct PCB list[]);
+int makeArrival (BOOL simArrival, int i);
+int makeBurst (BOOL simBurst);
+int makePriority (int i);
+int getRandom (int seed, int upper, int lower);
