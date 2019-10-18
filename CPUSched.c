@@ -26,9 +26,9 @@ int quanta = 10;
 BOOL preemptive = FALSE;
 char infile[100] = "process.in";
 char outfile[100] = "process.out";
-BOOL simulation = FALSE;
-BOOL arrival = FALSE;
-BOOL burst = FALSE;
+BOOL simulationFlag = FALSE;
+BOOL arrivalFlag = FALSE;
+BOOL burstFlag = FALSE;
 int simCount = -1;
 
 //bool for testing for a missing PARAMETER
