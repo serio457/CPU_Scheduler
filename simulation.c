@@ -22,7 +22,7 @@ void simulate (BOOL arrival, BOOL burst, int count, struct PCB list[]) {
 ///If arrival is not to be randomized, it defaults to i*5
 int makeArrival (BOOL simArrival, int i) {
     if (simArrival) 
-        return getRandom(i, LOWER_ARRIVAL);
+        return getRandom(i, UPPER_ARRIVAL, LOWER_ARRIVAL);
     else 
         return i*5;
 }
@@ -31,7 +31,7 @@ int makeArrival (BOOL simArrival, int i) {
 ///If burst is not to be randomized, it defaults to 20
 int makeBurst (BOOL simBurst) {
     if (simBurst) 
-        return getRandom(i, LOWER_BURST);
+        return getRandom(i, UPPER_BURST, LOWER_BURST);
     else 
         return 20;
 }
@@ -39,12 +39,12 @@ int makeBurst (BOOL simBurst) {
 ///Simulates priority
 //priority is always randomized 
 int makePriority () {
-    return getRandom(i, LOWER_PRIORITY);
+    return getRandom(i, UPPER_PRIORITY, LOWER_PRIORITY);
 }
 
 ///Returns a "random" number
 ///Uses the current time and a seeding number to generate the number
-int getRandom (int seed, int lower) {
+int getRandom (int seed,int upper, int lower) {
     srand(time(0)*(seed+1));
-    return (rand() % (UPPER - lower + 1)) + lower;
+    return (rand() % (upper - lower + 1)) + lower;
 }
