@@ -5,6 +5,8 @@
 
 // function to create a queue of given capacity.
 // It initializes size of queue as 0
+#include "Queue.h"
+
 struct Queue* createQueue(unsigned capacity)
 {
     struct Queue* queue = (struct Queue*) malloc(sizeof(struct Queue));
@@ -63,6 +65,62 @@ int rear(struct Queue* queue)
     return queue->array[queue->rear];
 }
 
+//code for sorting from https://en.wikiversity.org/wiki/C_Source_Code/Sorting_array_in_ascending_and_descending_order
+void sortByArrival (struct PCB array[], int size) {
+  for (int i = 0; i < size; i++)
+	{
+		for (int j = 0; j < size; j++)
+		{
+			if (array[j].arrivalTime > array[i].arrivalTime)
+			{
+				struct PCB temp = array[i];
+				array[i] = array[j];
+				array[j] = temp;
+			}
+      else if (array[j].arrivalTime == array[i].arrivalTime) {
+        lexigraphicalTieBreaker (array, i, j);
+      }
+		}
+	}
+}
+
+void sortByBurst (struct PCB array[], int size) {
+  for (int i = 0; i < size; i++)
+  {
+    for (int j = 0; j < size; j++)
+    {
+      if (array[j].burstTime > array[i].burstTime)
+      {
+        struct PCB temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
+    }
+  }
+}
+
+void sortByPriority (struct PCB array[], int size) {
+  for (int i = 0; i < size; i++)
+  {
+    for (int j = 0; j < size; j++)
+    {
+      if (array[j].priority > array[i].priority)
+      {
+        struct PCB temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
+    }
+  }
+}
+
+void lexigraphicalTieBreaker (struct PCB array[], int i, int j) {
+    int comparison = strcmp (array[j].name, array[i].name);
+    if (comparison < 0) {
+
+    }
+}
+
 // Driver program to test above functions./
 // int main()
 // {
@@ -79,4 +137,4 @@ int rear(struct Queue* queue)
 //     printf("Rear item is %d\n", rear(queue));
 
 //     return 0;
-// } 
+// }
