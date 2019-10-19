@@ -1,7 +1,7 @@
-CPU_Sched: CPU_Sched.o 
-	gcc -o CPU_Sched CPU_Sched.o
-CPU_Sched.o: CPU_Sched.c CPU_Sched.h
-	gcc -c CPU_Sched.c
+CPUSched: CPUSched.o 
+	gcc -o CPUSched CPUSched.o
+CPUSched.o: CPUSched.c CPUSched.h
+	gcc -c CPUSched.c
 PCB.o: PCB.c PCB.h
 	gcc -c PCB.c
 Queue.o: Queue.c Queue.h
