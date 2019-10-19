@@ -66,7 +66,7 @@ int rear(struct Queue* queue)
 }
 
 //code for sorting from https://en.wikiversity.org/wiki/C_Source_Code/Sorting_array_in_ascending_and_descending_order
-void sortByArrival (struct PCB array[], int size) {
+void sortByArrival (struct PCB array[500], int size) {
   for (int i = 0; i < size; i++)
 	{
 		for (int j = 0; j < size; j++)

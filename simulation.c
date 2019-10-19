@@ -10,8 +10,8 @@
 
 ///Generates a list of randomized PCB objects
 ///Arrival and burst are randomized if the corrisponding flags are true
-void simulate (BOOL arrival, BOOL burst, int count, struct PCB list[]) {
-  char PCBName[100];
+void simulate (SBOOL arrival, SBOOL burst, int count, struct PCB list[]) {
+  char PCBName[5];
     for (int i = 0; i < count; i++) {
 	sprintf(PCBName, "p%i", i);
 	makePCB(PCBName, makeArrival(arrival, i), makeBurst(burst, i), makePriority(), list, i);
@@ -20,7 +20,7 @@ void simulate (BOOL arrival, BOOL burst, int count, struct PCB list[]) {
 
 ///Simulates arrival time
 ///If arrival is not to be randomized, it defaults to i*5
-int makeArrival (BOOL simArrival, int i) {
+int makeArrival (SBOOL simArrival, int i) {
     if (simArrival) 
         return getRandom(i, UPPER_ARRIVAL, LOWER_ARRIVAL);
     else 
@@ -29,7 +29,7 @@ int makeArrival (BOOL simArrival, int i) {
 
 ///Simulates burst time
 ///If burst is not to be randomized, it defaults to 20
-int makeBurst (BOOL simBurst) {
+int makeBurst (SBOOL simBurst) {
     if (simBurst) 
         return getRandom(i, UPPER_BURST, LOWER_BURST);
     else 

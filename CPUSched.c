@@ -141,7 +141,7 @@ int simCount = -1;
             return 0;
         }
     }
-}
+
 printf ("Type string: %s\n", type);
 printf ("quanta number: %d\n", quanta);
 if (preemptive) {
@@ -179,18 +179,18 @@ if (simulationFlag) {
         fclose(file);
 
 //sort the array of PCB's based on the specified sort type
-    if (strcasecmp(type, "FCFS") == 0) {
-        sortByArrival (processes, numProcesses);
-    }
-    else if (strcasecmp(type, "SJF") == 0) {
-        sortByBurst (processes, numProcesses);
-    }
-    //else if (strcasecmp(type, "RR") == 0) {
-    //  sortByArrival (processes, numProcesses);
-    //}
-    else {
-        sortByPriority (processes, numProcesses);
-    }
+        if (strcasecmp(type, "FCFS") == 0) {
+            sortByArrival (processes, numProcesses);
+        }
+        else if (strcasecmp(type, "SJF") == 0) {
+            sortByBurst (processes, numProcesses);
+        }
+        //else if (strcasecmp(type, "RR") == 0) {
+        //  sortByArrival (processes, numProcesses);
+        //}
+        else {
+            sortByPriority (processes, numProcesses);
+        }
 
 
   //test whats in the array
@@ -206,7 +206,7 @@ if (simulationFlag) {
 // KEEP OR NAH?
 //
 //
-
+}
 //FUNCTIONS
 
 BOOL missingParameter(int numArgs, int currentArg) {

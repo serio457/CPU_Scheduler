@@ -9,6 +9,11 @@
 #include <time.h>
 #include "PCB.h"
 
+#define TRUE 1
+#define FALSE 0
+
+typedef int SBOOL;
+
 ///Lower bounds for number generation
 #define LOWER_ARRIVAL 0
 #define LOWER_BURST 1
@@ -20,8 +25,8 @@
 #define UPPER_PRIORITY 1023
 
 ///Function prototypes
-void simulate (BOOL arrival, BOOL burst, int count, struct PCB list[]);
-int makeArrival (BOOL simArrival, int i);
-int makeBurst (BOOL simBurst);
+void simulate (SBOOL arrival, SBOOL burst, int count, struct PCB list[]);
+int makeArrival (SBOOL simArrival, int i);
+int makeBurst (SBOOL simBurst);
 int makePriority (int i);
 int getRandom (int seed, int upper, int lower);

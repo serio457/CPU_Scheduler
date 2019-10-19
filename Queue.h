@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
-
-// A structure to represent a queue
-struct Queue
-{
-    int front, rear, size;
-    unsigned capacity;
-    int* array;
-};
-
-struct Queue* createQueue(unsigned capacity);
-int isFull(struct Queue* queue);
-int isEmpty(struct Queue* queue);
-void enqueue(struct Queue* queue, int item);
-int dequeue(struct Queue* queue);
-int front(struct Queue* queue);
-=======
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
@@ -41,5 +21,4 @@ void sortByArrival (struct PCB array[], int size);
 void sortByBurst (struct PCB array[], int size);
 void sortByPriority (struct PCB array[], int size);
 void lexigraphicalTieBreaker (struct PCB array[], int i, int j);
->>>>>>> perry
 int rear(struct Queue* queue);
