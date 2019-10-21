@@ -164,12 +164,14 @@ int main (int argc, char *argv[]) {
   FILE *file;
   char processName[10];
   int arrival, burst, priority;
-  int c, numProcesses=0;
+  int c, numProcesses;
   struct PCB processes[500];
 
-  printf("About to !simulate\n");
+  
   //read from an infile
   if (!simulationFlag) {
+    numProcesses = 0;
+    printf("About to !simulate\n");
     printf("Opening file\n");
     file = fopen (infile, "r");
     printf("File opened\n");
@@ -184,24 +186,47 @@ int main (int argc, char *argv[]) {
 	//increment the number of processes
 	numProcesses++;
       }
-    }
     fclose(file);
-    //sort the array of PCB's based on the specified sort type
-    if (strcasecmp(type, "FCFS") == 0) {
-    sortByArrival (processes, numProcesses);
     }
     else {
+      printf("ERROR: FILE NOT FOUND");
+      return 0;
+    }
+    
+  }
+  else {
+    numProcesses = simCount;
+    printf("About to simulate\n");
+    simulate (arrivalFlag, burstFlag, numProcesses, processes);
+    printf("Done with simulate\n");
+  }
+
+  printf("About to sort\n");
+  //sort the array of PCB's based on the specified sort type
+  if (strcasecmp(type, "FCFS") == 0) {
+    sortByArrival (processes, numProcesses);
+  }
+  else {
     if (strcasecmp(type, "SJF") == 0) {
-    sortByBurst (processes, numProcesses);
+      sortByBurst (processes, numProcesses);
     }
     //else if (strcasecmp(type, "RR") == 0) {
     //  sortByArrival (processes, numProcesses);
     //}
     else {
-    sortByPriority (processes, numProcesses);
+      sortByPriority (processes, numProcesses);
     }
+  }
+  printf("Done with sort\n");
+  //test whats in the array
+  if (simulationFlag) {
+    int p = 0;
+    while (p < numProcesses) {
+      printf ("PCB: %s %d %d %d\n", processes[p].name, processes[p].arrivalTime, processes[p].burstTime, processes[p].priority);
+      p++;
     }
-    //test whats in the array
+  }
+  else {
     int p = 0;
     while (p < numProcesses) {
       printf ("PCB: %s %d %d %d\n", processes[p].name, processes[p].arrivalTime, processes[p].burstTime, processes[p].priority);
