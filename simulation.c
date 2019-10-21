@@ -6,6 +6,7 @@
     Generating random numbers: https://www.geeksforgeeks.org/generating-random-number-range-c/
 */
 
+#include "PCB.h"
 #include "simulation.h"
 /*
 int main (void) {

@@ -219,21 +219,23 @@ int main (int argc, char *argv[]) {
   }
   printf("Done with sort\n");
   //test whats in the array
-  if (simulationFlag) {
-    int p = 0;
-    while (p < numProcesses) {
-      printf ("PCB: %s %d %d %d\n", processes[p].name, processes[p].arrivalTime, processes[p].burstTime, processes[p].priority);
-      p++;
-    }
+  for (int p = 0; p < numProcesses; p++) {
+    printf ("PCB: %s %d %d %d\n", processes[p].name, processes[p].arrivalTime, processes[p].burstTime, processes[p].priority);
   }
-  else {
-    int p = 0;
-    while (p < numProcesses) {
-      printf ("PCB: %s %d %d %d\n", processes[p].name, processes[p].arrivalTime, processes[p].burstTime, processes[p].priority);
-      p++;
+
+  printf("About to print to %s\n", outfile);
+  printf("Opening %s\n", outfile);
+  file = fopen (outfile, "w+");
+  if (file) {
+    printf("Opened %s successfully\n", outfile);
+    for (int i = 0; i < numProcesses; i++){
+      //take in the line & save values
+      fprintf(file, "%s %d %d %d\n", processes[i].name, processes[i].arrivalTime, processes[i].burstTime, processes[i].priority);
+      printf ("Printed PCB: %s %i %i %i\n", processes[i].name, processes[i].arrivalTime, processes[i].burstTime, processes[i].priority);
+      //increment the number of processes
     }
+    fclose(file);
   }
-  
   printf("Ending program\n");
   return 0;
 }
