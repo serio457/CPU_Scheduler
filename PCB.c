@@ -3,8 +3,6 @@
 //
 
 #include "PCB.h"
-#include "Queue.h"
-#include "simulation.h"
 
 void addToArray (struct PCB pcb, struct PCB array[], int index) {
     array[index] = pcb;

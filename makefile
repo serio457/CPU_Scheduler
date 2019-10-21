@@ -1,4 +1,4 @@
-CPUSched: CPUSched.o 
+CPUSched: CPUSched.o PCB.o Queue.o simulation.o
 	gcc -o CPUSched CPUSched.o PCB.o Queue.o simulation.o
 CPUSched.o: CPUSched.c CPUSched.h
 	gcc -c CPUSched.c

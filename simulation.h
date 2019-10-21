@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "PCB.h"
 
 #define TRUE 1
 #define FALSE 0
@@ -26,7 +25,7 @@ typedef int SBOOL;
 
 ///Function prototypes
 void simulate (SBOOL arrival, SBOOL burst, int count, struct PCB list[]);
-int makeArrival (SBOOL simArrival, int i);
-int makeBurst (SBOOL simBurst);
-int makePriority (int i);
+int makeArrival (SBOOL simArrival, int seed);
+int makeBurst (SBOOL simBurst, int seed);
+int makePriority (int seed);
 int getRandom (int seed, int upper, int lower);
