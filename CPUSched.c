@@ -91,24 +91,18 @@ int main (int argc, char *argv[]) {
       }
       strcpy(outfile, argv[i+1]);
     }
-  
-    printf ("Type string: %s\n", type);
-    printf ("quanta number: %d\n", quanta);
-    if (preemptive) {
+    /*
+      printf ("Type string: %s\n", type);
+      printf ("quanta number: %d\n", quanta);
+      if (preemptive) {
       printf ("preemptive: true\n");
-    }
-    if (!preemptive) {
+      }
+      if (!preemptive) {
       printf ("preemptive: false\n");
-    }
-    printf ("INFILE name: %s\n", infile);
-    printf ("OUTFILE name: %s\n", outfile);
-
-    //setting up variables
-    FILE *file;
-    char processName[10];
-    int arrival, burst, priority;
-    int c, numProcesses=0;
-    struct PCB processes[500];
+      }
+      printf ("INFILE name: %s\n", infile);
+      printf ("OUTFILE name: %s\n", outfile);
+    */
     // unclear if the above code is still needed
     if (!strcasecmp(argv[i], "-outfile")) {
       strcpy(outfile, argv[i+1]);
@@ -141,7 +135,7 @@ int main (int argc, char *argv[]) {
 	return 0;
       }
     }
-
+    
     printf ("Type string: %s\n", type);
     printf ("quanta number: %d\n", quanta);
     if (preemptive) {
@@ -162,47 +156,63 @@ int main (int argc, char *argv[]) {
       }
       printf ("\tSimulation count: %i", simCount);
     }
+    printf ("\n");
+    
+  }
+    
+  //setting up variables
+  FILE *file;
+  char processName[10];
+  int arrival, burst, priority;
+  int c, numProcesses=0;
+  struct PCB processes[500];
 
-    //read from an infile
-    if (!simulate) {
-      file = fopen (infile, "r");
-      if (file) {
-	while (fscanf(file, "%d", &c) != EOF) {
-	  //take in the line & save values
-	  fscanf(file, "%s %d %d %d", processName, &arrival, &burst, &priority);
-	  //make a PCB with the read data and store it in an array
-	  makePCB (processName, arrival, burst, priority, processes, numProcesses);
-	  //increment the number of processes
-	  numProcesses++;
-	}
-      }
-      fclose(file);
-
-      //sort the array of PCB's based on the specified sort type
-      if (strcasecmp(type, "FCFS") == 0) {
-	sortByArrival (processes, numProcesses);
-      }
-      else if (strcasecmp(type, "SJF") == 0) {
-	sortByBurst (processes, numProcesses);
-      }
-      //else if (strcasecmp(type, "RR") == 0) {
-      //  sortByArrival (processes, numProcesses);
-      //}
-      else {
-	sortByPriority (processes, numProcesses);
-      }
-
-
-      //test whats in the array
-      int p = 0;
-      while (p < numProcesses) {
-	printf ("PCB: %s %d %d %d\n", processes[p].name, processes[p].arrivalTime, processes[p].burstTime, processes[p].priority);
-	p++;
+  printf("About to !simulate\n");
+  //read from an infile
+  if (!simulationFlag) {
+    printf("Opening file\n");
+    file = fopen (infile, "r");
+    printf("File opened\n");
+    if (file) {
+      printf("Definitely opened the file\n");
+      while (fscanf(file, "%d", &c) != EOF) {
+	//take in the line & save values
+	fscanf(file, "%s %d %d %d", processName, &arrival, &burst, &priority);
+	//make a PCB with the read data and store it in an array
+	makePCB (processName, arrival, burst, priority, processes, numProcesses);
+	printf("PCB made\n");
+	//increment the number of processes
+	numProcesses++;
       }
     }
-    printf ("\n");
+    fclose(file);
+    //sort the array of PCB's based on the specified sort type
+    if (strcasecmp(type, "FCFS") == 0) {
+    sortByArrival (processes, numProcesses);
+    }
+    else {
+    if (strcasecmp(type, "SJF") == 0) {
+    sortByBurst (processes, numProcesses);
+    }
+    //else if (strcasecmp(type, "RR") == 0) {
+    //  sortByArrival (processes, numProcesses);
+    //}
+    else {
+    sortByPriority (processes, numProcesses);
+    }
+    }
+    //test whats in the array
+    int p = 0;
+    while (p < numProcesses) {
+      printf ("PCB: %s %d %d %d\n", processes[p].name, processes[p].arrivalTime, processes[p].burstTime, processes[p].priority);
+      p++;
+    }
   }
+  
+  printf("Ending program\n");
+  return 0;
 }
+
 // KEEP OR NAH?
 //
 //

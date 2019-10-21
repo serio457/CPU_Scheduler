@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+//#include "PCB.h"
 #include "Queue.h"
-#include "PCB.h"
 #include "simulation.h"
  
 #define TRUE 1
