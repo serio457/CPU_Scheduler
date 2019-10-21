@@ -66,7 +66,7 @@ int rear(struct Queue* queue)
 }
 
 //code for sorting from https://en.wikiversity.org/wiki/C_Source_Code/Sorting_array_in_ascending_and_descending_order
-void sortByArrival (struct PCB array[], int size) {
+void sortByArrival (struct PCB *array, int size) {
   for (int i = 0; i < size; i++)
 	{
 		for (int j = 0; j < size; j++)
@@ -84,7 +84,7 @@ void sortByArrival (struct PCB array[], int size) {
 	}
 }
 
-void sortByBurst (struct PCB array[], int size) {
+void sortByBurst (struct PCB *array, int size) {
   for (int i = 0; i < size; i++)
   {
     for (int j = 0; j < size; j++)
@@ -99,7 +99,7 @@ void sortByBurst (struct PCB array[], int size) {
   }
 }
 
-void sortByPriority (struct PCB array[], int size) {
+void sortByPriority (struct PCB *array, int size) {
   for (int i = 0; i < size; i++)
   {
     for (int j = 0; j < size; j++)
@@ -114,7 +114,7 @@ void sortByPriority (struct PCB array[], int size) {
   }
 }
 
-void lexigraphicalTieBreaker (struct PCB array[], int i, int j) {
+void lexigraphicalTieBreaker (struct PCB *array, int i, int j) {
     int comparison = strcmp (array[j].name, array[i].name);
     if (comparison < 0) {
 

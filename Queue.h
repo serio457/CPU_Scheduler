@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include "PCB.h"
 
 // A structure to represent a queue
 struct Queue
@@ -17,8 +18,8 @@ void enqueue(struct Queue* queue, int item);
 int dequeue(struct Queue* queue);
 int front(struct Queue* queue);
 
-void sortByArrival (struct PCB array[], int size);
-void sortByBurst (struct PCB array[], int size);
-void sortByPriority (struct PCB array[], int size);
-void lexigraphicalTieBreaker (struct PCB array[], int i, int j);
+void sortByArrival (struct PCB *array, int size);
+void sortByBurst (struct PCB *array, int size);
+void sortByPriority (struct PCB *array, int size);
+void lexigraphicalTieBreaker (struct PCB *array, int i, int j);
 int rear(struct Queue* queue);
