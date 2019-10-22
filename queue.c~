@@ -154,34 +154,6 @@ void prioritySort (PCB *array, Queue *queue, int count) {
   }
 }
 
-/*
-// So we didn't get to implement round robin all the way, at all, we kept changing our queue system, we thought the one we originally had 
-// was decent and then didn't touch it until we needed to do the algorithms, so we had to redo our queue to be simpler than what it was originally
-// see global comments of this file for what we intended to use
-// this is the shell of what it would have done with respect to managing multiple counters 
-
-void roundRobin (PCB *array, Queue *queue, int count, int quanta) {
-int quantaCount = 0; // counts up to quanta and then would reset after every quanta
-int time = 0; // counter to simulate the incrementation of time over time
-int timer = 0; // burst times added
-
-  for (i = 0; i < PCBArray.length; i++) {
-    timer = timer + PCB.burst;
-  }
-  while (time < timer) {
-      // update the runtime of the process, update the wait time of the process
-      if (burstTime == runTime) {
-
-      };
-      time++;
-      quantaCount++;
-
-  }
-
-}
-*/
-
-
 
 
 void swap (PCB *a, PCB *b) {
