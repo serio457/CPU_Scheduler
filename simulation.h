@@ -25,7 +25,7 @@ typedef int SBOOL;
 #define UPPER_PRIORITY 1023
 
 ///Function prototypes
-void simulate (SBOOL arrival, SBOOL burst, int count, struct PCB list[]);
+void simulate (SBOOL arrival, SBOOL burst, int count, PCB list[]);
 int makeArrival (SBOOL simArrival, int seed);
 int makeBurst (SBOOL simBurst, int seed);
 int makePriority (int seed);

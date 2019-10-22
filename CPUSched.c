@@ -91,18 +91,6 @@ int main (int argc, char *argv[]) {
       }
       strcpy(outfile, argv[i+1]);
     }
-    /*
-      printf ("Type string: %s\n", type);
-      printf ("quanta number: %d\n", quanta);
-      if (preemptive) {
-      printf ("preemptive: true\n");
-      }
-      if (!preemptive) {
-      printf ("preemptive: false\n");
-      }
-      printf ("INFILE name: %s\n", infile);
-      printf ("OUTFILE name: %s\n", outfile);
-    */
     // unclear if the above code is still needed
     if (!strcasecmp(argv[i], "-outfile")) {
       strcpy(outfile, argv[i+1]);
@@ -135,29 +123,6 @@ int main (int argc, char *argv[]) {
 	return 0;
       }
     }
-    
-    printf ("Type string: %s\n", type);
-    printf ("quanta number: %d\n", quanta);
-    if (preemptive) {
-      printf ("preemptive: true\n");
-    }
-    if (!preemptive) {
-      printf ("preemptive: false\n");
-    }
-    printf ("INFILE name: %s\n", infile);
-    printf ("OUTFILE name: %s\n", outfile);
-    if (simulationFlag) {
-      printf ("Simulation: true\n");
-      if (arrivalFlag) {
-	printf ("\tSimulating arrival: true\n");
-      }
-      if (burstFlag) {
-	printf ("\tSimulating burst: true\n");
-      }
-      printf ("\tSimulation count: %i", simCount);
-    }
-    printf ("\n");
-    
   }
     
   //setting up variables
@@ -165,24 +130,20 @@ int main (int argc, char *argv[]) {
   char processName[10];
   int arrival, burst, priority;
   int c, numProcesses;
-  struct PCB processes[500];
-
+  PCB processes[500];
+  Queue queue; 
+  double avgWait;
   
   //read from an infile
   if (!simulationFlag) {
     numProcesses = 0;
-    printf("About to !simulate\n");
-    printf("Opening file\n");
     file = fopen (infile, "r");
-    printf("File opened\n");
     if (file) {
-      printf("Definitely opened the file\n");
       while (fscanf(file, "%d", &c) != EOF) {
 	//take in the line & save values
 	fscanf(file, "%s %d %d %d", processName, &arrival, &burst, &priority);
 	//make a PCB with the read data and store it in an array
 	makePCB (processName, arrival, burst, priority, processes, numProcesses);
-	printf("PCB made\n");
 	//increment the number of processes
 	numProcesses++;
       }
@@ -192,67 +153,40 @@ int main (int argc, char *argv[]) {
       printf("ERROR: FILE NOT FOUND");
       return 0;
     }
-    
   }
   else {
     numProcesses = simCount;
-    printf("About to simulate\n");
     simulate (arrivalFlag, burstFlag, numProcesses, processes);
-    printf("Done with simulate\n");
   }
 
-  printf("About to sort\n");
-  //sort the array of PCB's based on the specified sort type
-  if (strcasecmp(type, "FCFS") == 0) {
-    sortByArrival (processes, numProcesses);
+  sortByArrival (processes, numProcesses);
+  if (strcmp (type, "FCFS") == 0) {
+    putIntoQ (&queue, processes, numProcesses);
+    avgWait = calcAverageWaitFCFS (queue);
   }
-  else {
-    if (strcasecmp(type, "SJF") == 0) {
-      sortByBurst (processes, numProcesses);
-    }
-    //else if (strcasecmp(type, "RR") == 0) {
-    //  sortByArrival (processes, numProcesses);
-    //}
-    else {
-      sortByPriority (processes, numProcesses);
-    }
-  }
-  printf("Done with sort\n");
-  //test whats in the array
-  for (int p = 0; p < numProcesses; p++) {
-    printf ("PCB: %s %d %d %d\n", processes[p].name, processes[p].arrivalTime, processes[p].burstTime, processes[p].priority);
-  }
-
-  printf("About to print to %s\n", outfile);
-  printf("Opening %s\n", outfile);
+    
   file = fopen (outfile, "w+");
   if (file) {
-    printf("Opened %s successfully\n", outfile);
-    for (int i = 0; i < numProcesses; i++){
-      //take in the line & save values
-      fprintf(file, "%s %d %d %d\n", processes[i].name, processes[i].arrivalTime, processes[i].burstTime, processes[i].priority);
-      printf ("Printed PCB: %s %i %i %i\n", processes[i].name, processes[i].arrivalTime, processes[i].burstTime, processes[i].priority);
-      //increment the number of processes
-    }
+    fprintf (file, "Average Wait Time: %f\n", avgWait);
+  
     fclose(file);
   }
-  printf("Ending program\n");
   return 0;
 }
 
-// KEEP OR NAH?
-//
-//
-//FUNCTIONS
-
-BOOL missingParameter(int numArgs, int currentArg) {
-  if (numArgs <= currentArg) {
-    return TRUE;
+double calcAverageWaitFCFS (Queue queue) {
+  int burstSum = 0, indvWait;
+  double avgWait, waitSum = 0, count = 0;
+  for (int i=0; i < queue.count; i++) {
+    indvWait = burstSum - queue.list[i].arrivalTime;
+    if (indvWait < 0) {
+      indvWait = 0;
+      burstSum = burstSum + (queue.list[i].arrivalTime - burstSum);
+    }
+    burstSum = burstSum + queue.list[i].burstTime;
+    waitSum = waitSum + indvWait;
+    count++;
   }
-  else {
-    return FALSE;
-  }
+  avgWait = waitSum/count;
+  return avgWait;
 }
-
-
-//

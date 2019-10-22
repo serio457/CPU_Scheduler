@@ -3,13 +3,19 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-struct PCB {
-    char name[5];
-    int arrivalTime, burstTime, priority;
-};
+#define TRUE 1
+#define FALSE 0
 
-void addToArray (struct PCB pcb, struct PCB array[], int count);
-void makePCB (char name[], int arrival, int burst, int priority, struct PCB array[], int count);
+typedef int BOOL;
+
+typedef struct {
+  char name[5];
+  BOOL inQueue;
+  int arrivalTime, burstTime, priority;
+}PCB;
+
+void addToArray (PCB pcb, PCB array[], int count);
+void makePCB (char name[], int arrival, int burst, int priority, PCB array[], int count);
 //PCB compareName (PCB pcb1, PCB pcb2);
 //PCB compareAT (PCB pcb1, PCB pcb2);
 //PCB compareBT (PCB pcb1, PCB pcb2);

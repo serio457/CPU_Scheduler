@@ -19,7 +19,7 @@ int main (void) {
 
 ///Generates a list of randomized PCB objects
 ///Arrival and burst are randomized if the corrisponding flags are true
-void simulate (SBOOL arrival, SBOOL burst, int count, struct PCB list[]) {
+void simulate (SBOOL arrival, SBOOL burst, int count, PCB list[]) {
   char PCBName[5];
     for (int i = 0; i < count; i++) {
 	sprintf(PCBName, "p%i", i);

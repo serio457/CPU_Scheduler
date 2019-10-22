@@ -6,7 +6,7 @@
 // function to create a queue of given capacity.
 // It initializes size of queue as 0
 #include "Queue.h"
-
+/*
 struct Queue* createQueue(unsigned capacity)
 {
     struct Queue* queue = (struct Queue*) malloc(sizeof(struct Queue));
@@ -27,7 +27,7 @@ int isEmpty(struct Queue* queue)
 
 // Function to add an item to the queue.
 // It changes rear and size
-void enqueue(struct Queue* queue, int item)
+void enqueue(struct Queue* queue, struct PCB item)
 {
     if (isFull(queue))
         return;
@@ -64,16 +64,16 @@ int rear(struct Queue* queue)
         return INT_MIN;
     return queue->array[queue->rear];
 }
-
+*/
 //code for sorting from https://en.wikiversity.org/wiki/C_Source_Code/Sorting_array_in_ascending_and_descending_order
-void sortByArrival (struct PCB *array, int size) {
+void sortByArrival (PCB *array, int size) {
   for (int i = 0; i < size; i++)
 	{
 		for (int j = 0; j < size; j++)
 		{
 			if (array[j].arrivalTime > array[i].arrivalTime)
 			{
-				struct PCB temp = array[i];
+				PCB temp = array[i];
 				array[i] = array[j];
 				array[j] = temp;
 			}
@@ -84,14 +84,14 @@ void sortByArrival (struct PCB *array, int size) {
 	}
 }
 
-void sortByBurst (struct PCB *array, int size) {
+void sortByBurst (PCB *array, int size) {
   for (int i = 0; i < size; i++)
   {
     for (int j = 0; j < size; j++)
     {
       if (array[j].burstTime > array[i].burstTime)
       {
-        struct PCB temp = array[i];
+        PCB temp = array[i];
         array[i] = array[j];
         array[j] = temp;
       }
@@ -99,14 +99,14 @@ void sortByBurst (struct PCB *array, int size) {
   }
 }
 
-void sortByPriority (struct PCB *array, int size) {
+void sortByPriority (PCB *array, int size) {
   for (int i = 0; i < size; i++)
   {
     for (int j = 0; j < size; j++)
     {
       if (array[j].priority > array[i].priority)
       {
-        struct PCB temp = array[i];
+        PCB temp = array[i];
         array[i] = array[j];
         array[j] = temp;
       }
@@ -114,27 +114,38 @@ void sortByPriority (struct PCB *array, int size) {
   }
 }
 
-void lexigraphicalTieBreaker (struct PCB *array, int i, int j) {
+void lexigraphicalTieBreaker (PCB *array, int i, int j) {
     int comparison = strcmp (array[j].name, array[i].name);
     if (comparison < 0) {
 
     }
 }
 
-// Driver program to test above functions./
-// int main()
-// {
-//     struct Queue* queue = createQueue(1000);
+void putIntoQ (Queue *queue, PCB *array, int PCBCount) {
+  for (int i = 0; i < PCBCount; i++) {
+    addToArray (array[i], queue->list, i);
+  }
+  queue->count = PCBCount;
+}
 
-//     enqueue(queue, 10);
-//     enqueue(queue, 20);
-//     enqueue(queue, 30);
-//     enqueue(queue, 40);
+void SJF (PCB *array, Queue queue, int n) {
+  int i, j;
+  int burstSum = 0;
+  for (i = 0; i < n - 1; i++) {
+    for (j = 0; j < n - i - 1; j++) {
+      if (array[j].burstTime > array[j + 1].burstTime) {
+	if (array[j].arrivalTime <= burstSUm) {
+	  swap (&array[j], &array[j + 1]);
+	}
+      }
+    }
+    burstSum = burstSum + array[i].burstTime;
+  }
+}
 
-//     printf("%d dequeued from queue\n\n", dequeue(queue));
-
-//     printf("Front item is %d\n", front(queue));
-//     printf("Rear item is %d\n", rear(queue));
-
-//     return 0;
-// }
+void swap (PCB *a, PCB *b) {
+  PCB temp;
+  temp = *a;
+  *a = *b;
+  *b = temp;
+}

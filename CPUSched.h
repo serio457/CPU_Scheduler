@@ -12,4 +12,5 @@
 
 typedef int BOOL;
 
-BOOL missingParameter(int numArgs, int currentArg);
+//BOOL missingParameter(int numArgs, int currentArg);
+double calcAverageWaitFCFS (Queue queue);
