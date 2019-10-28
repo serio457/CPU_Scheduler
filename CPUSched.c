@@ -37,6 +37,7 @@ int main (int argc, char *argv[]) {
   BOOL arrivalFlag = FALSE;
   BOOL burstFlag = FALSE;
   int simCount = -1;
+  BOOL verbose = FALSE;
 
   for (int i = 0; i < argc; i++) {
     //Tests for type argument
@@ -47,7 +48,7 @@ int main (int argc, char *argv[]) {
 	return 0;
       }
       strcpy (type, argv[i+1]);
-      if (!((!strcasecmp(argv[i+1], "FCFS")) || (!strcasecmp(argv[i+1], "RR")) || (!strcmp(argv[i+1], "SJF")) || (!strcmp(argv[i+1], "priority")))) {
+      if (!((!strcasecmp(argv[i+1], "FCFS")) || (!strcasecmp(argv[i+1], "RR")) || (!strcasecmp(argv[i+1], "SJF")) || (!strcmp(argv[i+1], "priority")))) {
 	printf ("ERROR: INVALID TYPE. VALID TYPES INCLUDE: FCFS, RR, SJF, priority\n");
 	return 0;
       }
@@ -123,6 +124,11 @@ int main (int argc, char *argv[]) {
 	return 0;
       }
     }
+
+    if (!strcmp(argv[i], "-v")) {
+      verbose = TRUE;
+    }
+      
   }
     
   //setting up variables
@@ -178,7 +184,9 @@ int main (int argc, char *argv[]) {
   file = fopen (outfile, "w+");
   if (file) {
     fprintf (file, "Average Wait Time: %f\n", avgWait);
-  
+    if (verbose)
+      for (int i = 0; i < numProcesses; i++)
+	fprintf (file, "%s %d %d %d\n", queue.list[i].name, queue.list[i].arrivalTime, queue.list[i].burstTime, queue.list[i].priority);
     fclose(file);
   }
   return 0;

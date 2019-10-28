@@ -28,4 +28,4 @@ void swap (PCB *a, PCB *b);
 void prioritySort (PCB *array, Queue *queue, int count);
 
 //calculates the average wait time 
-double calcAverageWait (Queue queue
+double calcAverageWait (Queue queue);
